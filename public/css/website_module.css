@@ -1,0 +1,131 @@
+//从左右边动画进入
+#wrap .mt40 {
+	padding-top: 80px !important;
+}
+
+#wrap .mt20 {
+	padding: 20px !important;
+}
+
+.animate_css.first_img{
+    animation-delay: 0.2s ;
+}
+
+.animate_css.second_img {
+    animation-delay: 0.5s ;
+}
+
+.animate_css.thred_img {
+    animation-delay: 1s ;
+}
+.animate_css.fourth_img {
+    animation-delay: 1.5s ;
+}
+
+//左字右图
+
+.container {
+  font-family: Microsoft YaHei;
+  font-size: 13px;
+}
+
+section.img_text_test  h3 {
+  width: 90%;
+  margin-left: 5%;
+}
+section.img_text_test img{
+  width: 95%;
+}
+.oe_structure.oe_empty section{
+    margin-bottom: 10px;
+}
+section.img_text_test img:hover{
+    -webkit-transform:scale(1.02);
+    -moz-transform:scale(1.02);
+    transform:scale(1.02);
+}
+section.img_text_test img{
+    -webkit-transition-property:all; 
+    -webkit-transition-duration:0.3s; 
+    -webkit-transition-timing-function:cubic-bezier(0.25, 0.1, 0.25, 1.0);
+    -moz-transition-property:all; 
+    -moz-transition-duration:0.3s; 
+    -moz-transition-timing-function:cubic-bezier(0.25, 0.1, 0.25, 1.0);
+    transition-property:all; 
+    transition-duration:0.3s; 
+    transition-timing-function:cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+.img_text_test h3{
+  color: #5fc0e0;
+}
+.img_text_test p{
+  padding-left: 1em;
+  border-left: 3px solid #ddd;
+}
+.text_image .img_title1,.text_image .img_texts1{
+    position: relative;
+    top:69px;
+}
+.image_text .img_title1,.image_text .img_texts1{
+    position: relative;
+    top:60px;
+    left: 2em;
+}
+.text1_img {
+    padding-left: 3em;
+}
+
+@media(max-width:992px){
+    .text_image .img_title1,.text_image .img_texts1{
+    position: relative;
+    top:-30px;
+    left: 2em;
+  }
+  .image_text .img_title1,.image_text .img_texts1{
+    position: relative;
+    top:-26px;
+  }
+  .img_text_test h3{
+    font-size: 20px;
+  }
+  .img_text_test p{
+    margin-top: 15px;
+  }
+  .image_text  img{
+    padding-left: 0em;
+  }
+  .text_image .img_title1{
+      margin-top: 20px;
+  }
+  .out_box{
+    position: relative;
+    left: -1.5em;
+  }
+
+  .text1_img {
+    margin-left: 4.5%;
+  }
+
+  .text1_img2 {
+    margin-left: 11.5%;
+  }
+}
+
+.text1_img{
+  top:-32px;
+}
+
+.text1_img2 {
+    top: -32px;
+    padding-right: 3em;
+}
+
+img.shadow {
+  box-shadow: 0px 3px 9px rgba(0,0,0,0.2),-0px -3px 9px rgba(0,0,0,0.2);
+}
+
+
+.gradute_year {
+  margin-top: 6rem;
+  padding-left: 2rem;
+}

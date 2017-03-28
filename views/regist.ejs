@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>注册</title>
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<style>
+		#error_cue {
+			display: none;
+			margin-top: 10px;
+		}
+		.regist_page {
+			margin-top: 50px;
+			padding-left: 80px;
+		}
+		.validate_username, .validate_userpsd{
+			display: inline-block;
+			line-height: 12px;
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<% include header.ejs %>
+	<section class="regist_page">
+		<div class="container">
+		    <h2>欢迎注册</h2>
+		    <div class="col-md-5 col-sm-12 col-xs-12">	    
+				<form role="form">
+					<div class="form-group">
+					    <label for="username">登陆账号</label>
+					    <input type="text" class="form-control" id="username" placeholder="请输入邮箱地址或者昵称"> <span class="validate_username"></span>
+					</div>
+					<div class="form-group">
+					    <label for="userpassword">密码</label>
+					    <input type="password" class="form-control" id="userpassword" placeholder="6-8位数字或字母"> <span class="validate_userpsd"></span>
+					  </div>
+					<div class="checkbox">
+					    <label>
+					      <input type="checkbox"> 同意条款
+					    </label>
+					</div>
+					<button type="submit" class="btn btn-default" id="regist">注册</button>
+							<!-- 这里的type属性不能为submit  自动提交表单，ajax获取不到后台的返回状态值-->
+				</form>
+				<div class="alert alert-danger" role="alert" id="error_cue">
+					此名字已经被注册，请重新选择
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="/js/jquery-1.11.3.min.js"></script>
+	<script src="/js/bootstrap.js"></script>
+	<script>
+	    $("input").focus(function(){
+	    	$("#error_cue").fadeOut();
+	    	$(".validate_username").fadeOut();
+	    	$(".validate_userpsd").fadeOut();
+	    })
+		$("#regist").click(function (argument) {
+			var username = $("#username").val();
+			var userpassword = $("#userpassword").val();
+			var patrn=/^(\w){6,20}$/;  
+			if(username =="") {
+				//alert("用户名不能为空");
+				$(".validate_username").html("用户名不能为空").fadeIn();
+				//return;
+			}else if(username !=""){				
+				if(patrn.test(userpassword)) {
+					$.post("/doRegist",{
+						"username" : $("#username").val(),
+						"userpassword" : $("#userpassword").val()
+					},function(result){
+						if(result　==　"1"){
+							alert("注册成功，将自动回到首页");
+							window.location="/";
+						}else if(result　==　"-1"){
+							$("#error_cue").fadeIn();
+						}else if(result　==　"-3") {
+							alert("服务器错误，请联系管理员");
+						}
+					})
+				}else{
+					//alert('请正确输入密码');
+					$(".validate_userpsd").html("请正确输入密码").fadeIn();
+					return false;
+				}
+
+			}
+			
+			return false;//组织表单自动提交，或者提交按钮不用 type="submit"
+		})
+	</script>
+</body>
+</html>

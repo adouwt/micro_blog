@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>绝密档案</title>
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<script src="/js/jquery-1.11.3.min.js"></script>
+	<script src="/js/bootstrap.js"></script>
+	<style>
+		body {
+			background-image : url(/images/section_boot.jpg);
+		}
+		.mrt50 {
+			width: 30%;
+			margin-top: 70px;
+		}
+		.files {
+			text-align: center;
+			background:rgba(0,0,0,0.4);
+			height: 500px;
+			position: relative;
+		}
+		.files div {
+			position: absolute;
+		}
+		.content_details {
+			text-align: center;
+			position: static !important;
+			text-align: center;
+		}
+		.content_details {
+			line-height: 2em;
+		}
+		.adou_files_cover,.rotate_text ,.cute_adou{
+			position: absolute;
+			left: 0;
+			top: 0;
+
+		}
+		.adou_vertify {
+			display: inline-block;
+			border:1px solid #ddd;
+			padding:3px;
+			border-radius: 3px;
+			cursor: pointer;
+		}
+		.content_details p:first-child{
+			padding-top: 10px;
+		}
+		.rotate_text {
+			color: red;
+			font-size: 30px;
+		}
+		.cute_adou {
+			top:30%;
+			z-index: 22222;
+		}
+		.weinPub {
+			position: relative;
+		}
+		.weixinPub_img {
+			display: none;
+			position: absolute;
+			top: 10rem;
+			left: 5rem;
+		}
+		.weixinPub_a {
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<% include header.ejs %>
+	<section class="mrt50 container">
+		<p>
+			口令：<input type="text" class="adou_name" placeholder="提示：阿逗或者adou">
+			<span class="adou_vertify">验证</span>	
+		</p>
+		<div class="files">			
+			<div class="content_details">
+				<p>姓名：王涛</p>
+				<p>年龄：25</p>
+				<p>网站搭建：nodeJs</p>
+				<p>感情：单身狗</p>
+				<p>现在公司：上海企通软件有限公司</p>
+				<p>最近项目：<a href="http://www.80serp.com" target="_black">80后ERP</a></p>
+				<p>兴趣方向：社交、物联网</p>
+				<p>住址：浦东张江</p>
+				<p>爱好：运动、扯犊子</p>
+				<p>博客：<a href="http://www.cnblogs.com/adouwt/" target="_black">阿逗</a></p>
+				<p class="weinPub">公众号：<a class="weixinPub_a">逗上苍穹</a></p>
+				<p>家乡：<a href="http://baike.baidu.com/link?url=yIuF6QvD7YeQKvVfdxLsFFCgRyji4QtcuzdIHq3_3s5AicW6gC2k47rIfzPcZUpD3Fazj-xDwgJpEitZZhMHaeu4uxsvoU668XFz-QxnqO_" target="_black">安徽安庆</a></p>
+				<p>毕业院校：<a href="http://www.hbcnc.edu.cn/" target="_black">淮北师大</a></p>
+				<img src="/images/weixinPub.jpg" alt="" class="weixinPub_img">
+				<p>...</p>
+			</div>
+			<div class="adou_files_cover">
+				<img src="/images/adou_files_cover.jpg" alt="" >
+				<marquee behavior="scroll" direction="left" scrollamount="15" scrolldelay="100" class="rotate_text" align="absmiddle">
+					看见没，要口令
+				</marquee>
+			</div>
+			
+		</div>
+	</section>
+	<script>	
+		$(".adou_name").bind('keydown', function (e) {
+			var a = $(".adou_name").val();
+			var key = e.which;
+			if (key == "13") {
+				if(a== "adou"||a =="阿逗"){
+					$(".adou_files_cover").fadeOut();
+				}else {
+					alert("就是提示啊！");
+				}
+			}
+		});
+		$(".adou_vertify").click(function(){
+			var a = $(".adou_name").val();
+			if(a== "adou"|| a =="阿逗"){
+				$(".adou_files_cover").fadeOut();
+			}else {
+				alert("就是提示啊！");
+			}
+		})
+		$(".weixinPub_a").click(function () {
+			$(".weixinPub_img").toggle();
+		})
+		
+	</script>
+</body>
+</html>

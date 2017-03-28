@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HOME</title>
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<link rel="stylesheet" href="/css/adou_blog.css">
+	<script src="/js/jquery-1.11.3.min.js"></script>
+	
+</head>
+<body>
+	<div class="index_background">
+		<% include header.ejs %>
+		<section  class="welcome_section">
+			<div>
+			    <%if(login){%>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 col-sm-12 col-12 welcome_back">
+							<h1 >欢迎回来</h1>
+						    <p>
+						    	<a href="/setavatar"><img src="/avatar/<%=avatar%>" alt="img" class="avatar_img"></a>
+						    	<span id="username">
+						    		<%=username%>:
+						    	</span>
+						    </p>
+						    <form action="" class="public_content">
+							    <div class="blog_titles">
+							    	标题：<input type="text" name="blog_title" id="blog_title">
+							    </div>
+							    <span>内容：</span>
+						    	<section id="editor">
+							      	<textarea name="log_day" id="log_day" cols="50" rows="3"></textarea>
+							 	</section>
+							    <p><a class="btn btn-success btn-lg" href="#" role="button" id="public_log">提交</a></p>
+						    </form>
+						</div>
+						<div class="col-md-5 col-sm-12 col-12 welcome_img" >
+							<div id="splitter" onclick="alert('Thank For Your 捧场！')">
+							    <span >DOVE</span>
+							    <img src="/images/road-to-nowhere.jpg" alt class="img img-responsive">
+							    <img src="/images/road-to-nowhere.jpg" alt class="img img-responsive">
+							    <img src="/images/road-to-nowhere.jpg" alt="" style="position: static; opacity: 0" class="img img-responsive">
+							</div>
+							<h3>爱在路的前方</h3>
+						</div>
+					</div>
+				</div>
+				<%}else{%>
+				<div class="container">
+				    <div class="row">
+						<div class="col-md-6 col-sm-12 col-12 welcome_back">
+							<h1>欢迎来到Micro博客</h1>
+						    <p>
+						    	<a href="#"><img src="/avatar/default.jpg" alt="img" class="avatar_img"></a>
+						    </p>
+						</div>
+				    	<div class="col-md-5 col-sm-12 col-12">
+							<h3>已有账号登录</h3>
+							<form role="form" class="revise_login">
+								<div class="form-group">
+								    <label for="username">邮箱地址</label>
+								    <input type="email" class="form-control" id="username" placeholder="Enter email">
+								</div>
+								<div class="form-group">
+								    <label for="userpassword">密码</label>
+								    <input type="password" class="form-control" id="userpassword" placeholder="Password">
+								  </div>
+								<div class="checkbox">
+								    <label>
+								      <input type="checkbox"> 同意
+								    </label>
+								</div>
+								<button type="submit" class="btn btn-primary" id="index_login">登录</button>
+										<!-- 这里的type属性不能为submit  自动提交表单，ajax获取不到后台的返回状态值除非在ajax最后return false-->
+							</form>
+							<div class="alert alert-danger" role="alert" id="index_error_cue">
+								用户名或者密码不对，请核实再填写
+							</div>
+						</div>
+				    </div>
+					
+				</div>
+				<%}%>	    
+			</div>
+		</section>
+		<section>
+			<%if(login){%>
+			<div class="container logs_display" >
+				<nav>
+			        <ul class="pagination">
+
+			        </ul>
+			    </nav>
+			    <script type="text/javascript">
+			        //分页条的Ajax
+			        $.get("/alllogsamount", function (result) {
+			            var amount = parseInt(result);
+			            //总页数
+			            pageamount = Math.ceil(amount / 6);
+			            for (var i = 0; i < pageamount; i++) {
+			                $(".pagination").append("<li><a href='javascript:void(0);'>" +(i+1)+ "</a></li>");
+			            }
+			            $(".pagination li:first").addClass("active");
+			            //监听
+			            $(".pagination li").click(function () {
+			                var page = $(this).index();
+			                getPage(page);
+			                $(this).addClass("active").siblings().removeClass("active");
+			            });
+			        })
+			    </script>
+			    <div class="row" id="alllogs">
+			    	
+			    </div>
+			</div>
+			<%}else{%>
+				<div class="container" id="alllogs" style="display: none;">
+						
+				</div>
+			<%}%>
+		</section>
+		<script src="/js/bootstrap.js"></script>
+		<script src="/js/underscore-noflect.js"></script>
+
+		<!-- 列出说说 -->
+		<script type="text/template" id="moban">
+		    <div class="col-md-4 grid">
+		        <h4><img width="40" class="avatar" src="/avatar/{{=avatar}}" alt=""/><span>{{=username}}说：</span></h4>
+	`           
+		        <p>标题：<span class="blog_title">{{=blog_title}}</span></p>
+				<p>内容：<span class="log_day">{{=log_day}}</span></p>
+		        <p>日期：<span class="datetime">{{=datetime}}</span></p>
+
+		        <p><a class="btn btn-default" href="#" role="button">查看详细</a></p>
+		    </div>
+		</script>
+
+		<!-- 取出#moban 内容追加到说说列表项中 -->
+		<script>
+			var compiled = _.template($("#moban").html());
+			getPage(0);
+	      //请求分页的说说信息
+		    function getPage(page) {
+		        //将现在的页面内容清除
+		        $("#alllogs").html("");
+		        $.ajax({
+		            "url": "/alllogs?page=" + page,
+		            "type": "get",
+		            "success": function (result) {
+		                //result是一个数组
+		                //console.log(Array.isArray(result));
+		                iterator(0);
+		                //迭代器
+		                function iterator(i) {
+		                    if (i == result.length) {
+		                        //在这里书写请求完毕之后做的事情
+		                        return;  //不用继续迭代了
+		                    }
+		                    $.get("/userinfo?username=" + result[i].username, function (result2) {
+		                                //修改字典，给字典增加一项
+		                                result[i].avatar = result2.avatar;
+		                                //组装模板
+		                                var htmlstring = compiled(result[i]);
+		                                //添加DOM
+		                                $("#alllogs").append($(htmlstring));
+		                                iterator(i + 1);
+		                            }
+		                    );
+		                }
+		            }
+		        });
+		    }
+		</script>
+		<!-- 主页登录 -->
+		<script>
+			$("#index_login").click(function () {
+				$("input").focus(function (argument) {
+					$("#index_error_cue").fadeOut();
+				})
+				$.post("/doLogin",{
+					"username" : $("#username").val(),
+					"userpassword" : $("#userpassword").val()
+				},function(result){
+					if(result=="1"){
+						alert("登录成功,将回到首页");
+						window.location = "/";
+					}else if(result=="-1"){
+						$("#index_error_cue").fadeIn().html("用户名不存在");
+					}else if(result=="-5"){
+						$("#index_error_cue").fadeIn().html("服务器错误");
+					}
+					else if(result=="-2"){
+						$("#index_error_cue").fadeIn().html("密码错误");
+					}
+				})
+				return false;
+			})
+		</script>
+		<!-- 发表说说 -->
+		<script>
+			var mobanlog = $(".grid").html();
+			$("#public_log").click(function () {
+				var pub_content = $(".public_content").serialize();
+				var user_log_day = $("#log_day").val();
+				var reg = "=&";
+				var sigh = pub_content.indexOf(reg);
+				if(sigh<0 && user_log_day !="") {
+					$.post("/doPublic",{
+						"log_day" : $("#log_day").val(),
+						"blog_title" : $("#blog_title").val()
+					},function (result) {
+						if(result=='1'){
+							alert("发表成功");
+							$("#log_day").val("");
+							$("#blog_title").val("");
+							history.go(0)
+						}
+						if(result=='-1'){
+							alert("发表失败，请联系管理员")
+						}
+					})
+				}else {
+					alert("输入框不能为空");
+					return;
+				}
+			})
+		</script>
+	</div>
+	<footer class=" navbar-fixed-bottom">
+			<div class="container">
+				<p>
+					@adou-2017
+				</p>
+			</div>
+	</footer>
+</body>
+</html>

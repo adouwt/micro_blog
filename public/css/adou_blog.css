@@ -1,0 +1,110 @@
+body {
+	background-image : url(/images/section_boot.jpg) ;
+}
+img.avatar_img {
+	width: 100px;
+	border-radius: 50%;
+}		
+#index_error_cue {
+	margin-top: 10px;
+	display: none;
+}
+.avatar {
+	border-radius: 5px;
+	margin-right: 1em;
+}
+div.grid {
+	min-height: 220px;
+}
+.logs_display {
+	min-height: 200px;
+}	
+.blog_titles {
+	margin-bottom: 10px;
+}
+footer {
+	overflow: hidden;
+	background-color: #333;
+}
+footer p {
+	color: #fff;
+	padding-top: 10px;
+}
+.right_img {
+	padding-top: 35%;
+}
+#public_log {
+	margin-top: 10px;
+}
+.welcome_section {
+	margin-top: 40px;
+}
+.adou_nav:hover {
+	transition: all 1s ;
+	background-color: #fff;
+}
+.adou_nav {
+	transition: all 1s ;
+	background-color: rgba(255,255,255,0.5);
+}
+.adou_nav a {
+	color: #222;
+}
+.adou-js_space {
+	width: 100%;
+	height: 30px;
+}
+.welcome_section h1 {
+	margin-left: 55px;
+	margin-top: 36px;
+}
+.welcome_back {
+	margin-left: 20px;
+}
+
+/*右边的开门效果的css*/
+div#splitter {
+    position: relative;overflow: hidden;
+    width: 500px; background: #0057a7;
+    font-family: Blue Highway, Arial, sans-serif;
+    color: #fff; margin: 20px auto;
+    font-size: 0;
+    border-radius: 25px;
+}
+div#splitter img {
+    position: absolute;
+    transition: 1s all ease-in-out;
+    width: 100%;
+    border-radius: 25px;
+
+}
+div#splitter span {
+    position: absolute; font-size: 8rem;
+    top: 40%; left: 25%;
+}   
+
+div#splitter img:nth-of-type(1) {
+	clip: rect(0px,500px,250px,0px);
+}
+div#splitter img:nth-of-type(2) {
+    clip: rect(250px,500px,500px,0px);
+}
+div#splitter:hover img:nth-of-type(1) {
+    transform: translateY(-150px);
+    
+}
+div#splitter:hover img:nth-of-type(2) {
+    transform: translateY(150px);
+}
+
+/*小屏幕的时候按钮看不见*/
+.navbar-toggle {
+	border-color: #333 !important;
+	background-color: #333 !important;
+}
+.grid {
+	margin-bottom: 30px;
+}
+.welcome_img h3{
+	text-align: center;
+}

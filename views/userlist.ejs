@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>所有成员</title>
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<script src="/js/jquery-1.11.3.min.js"></script>
+	<script src="/js/bootstrap.js"></script>
+	<style>
+		.mrt50 {
+			margin-top: 70px;
+			width: 100%;
+		}
+		.mrt50>div>div img{
+			display: inline-block;
+			width: 60px;
+			border-radius: 50%;
+		}
+		.mrt50 p {
+			display: inline-block;
+			margin-right: 20px;
+		}
+		.userList {
+			display: inline-block;
+		}
+		
+		.userList dt,.userList dd {
+			text-align: center;
+		}
+		.user_list {
+			display: inline-block;
+			width: 100px;
+		}
+		.authority p{
+			margin-left: 25px;
+			margin-top: 10px;
+		}
+		.auth_login {
+			margin-left: 20px;
+		}
+	</style>
+</head>
+<body>
+	<% include header.ejs %>
+	<section class="mrt50">
+		<div class="container">
+		<%if(login){%>
+			<% for(var i = 0 ; i < suoyouchengyuan.length ; i++){ %>
+	            <div class="userList" >
+	                <a target="_blank" href="/user/<%= suoyouchengyuan[i].username %>" class="user_list">
+	                	<dl>
+	                		<dt><img src="/avatar/<%= suoyouchengyuan[i].avatar %>" alt=""/></dt>
+	                		<dd> <%= suoyouchengyuan[i].username %></dd>
+	                	</dl>
+	                </a>
+	            </div>
+       		<% } %>
+       	<%} else{%>
+       		<div class="container authority">
+       			<p>您尚未登陆，无法查看我们的用户,请登录！</p>
+       			<div>
+       				<a href="/login" class="btn btn-success auth_login">登录</a>
+       			</div>
+       		</div>
+       		
+       	<%}%>
+		</div>
+	</section>
+	
+</body>
+</html>
